@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-ActiveRecord::Base.transaction do
+
   User.destroy_all
   u1 = User.create(username: 'dobrynin')
   u2 = User.create(username: 'sawatske')
@@ -20,4 +20,8 @@ ActiveRecord::Base.transaction do
   ArtworkShare.destroy_all
   as1 = ArtworkShare.create(artwork_id: a1.id, viewer_id: u2.id)
   as2 = ArtworkShare.create(artwork_id: a2.id, viewer_id: u1.id)
-end
+  as3 = ArtworkShare.create(artwork_id: a1.id, viewer_id: u1.id)
+
+  Comment.destroy_all
+  c1 = Comment.create(artwork_id: as1.id, user_id: u2.id, body: "This thing. I don't like this thing.")
+  c2 = Comment.create(artwork_id: as1.id, user_id: u1.id, body: "I like it!")
